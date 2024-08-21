@@ -65,7 +65,7 @@
                 />
                 <Button
                     variant="flat"
-                    class="border-1 border-black rounded-0 p-3 focus:border-none"
+                    class="border-1 border-black rounded-0 p-3"
                     @click="submitSearchFields"
                 >
                     <Search class="h-4 w-4" />
@@ -252,7 +252,8 @@ const submitSearchFields = () => {
                 searchArray.push({ name: row.key, text: searchText.value });
             }
         });
-    emit("loadData", 1, props.pagination.per_page, searchArray);
+    searchText.value != "" &&
+        emit("loadData", 1, props.pagination.per_page, searchArray);
 };
 
 const loadHeader = (key) => {
