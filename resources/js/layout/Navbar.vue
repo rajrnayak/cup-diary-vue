@@ -1,5 +1,7 @@
 <template>
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex justify-end">
+    <header
+        className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex justify-end"
+    >
         <!-- <Sheet>
                 <SheetTrigger asChild>
                     <Button
@@ -100,7 +102,10 @@
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Link :href="baseUrl">
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                </Link>
+                <Link href="/logout">
+                    <DropdownMenuItem>Logout</DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
             </DropdownMenuContent>
@@ -122,6 +127,4 @@ import { Link, usePage } from "@inertiajs/vue3";
 
 const { url } = usePage();
 const { baseUrl } = usePage().props;
-
-
 </script>
