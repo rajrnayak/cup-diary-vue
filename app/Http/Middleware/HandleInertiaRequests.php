@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -35,9 +37,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $givenPermissions = [];
+        $role = Role::find(3);
+        $all_permissions = Permission::get('name');
+        foreach ($all_permissions as $key => $value) {
+            $givenPermissions[$value->name] = $role->hasPermissionTo($value->name);
+        }
         $url = url('/');
         return array_merge(parent::share($request), [
             'baseUrl' => $url,
+            'givenPermissions'=>$givenPermissions
         ]);
     }
 }

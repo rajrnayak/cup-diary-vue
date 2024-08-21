@@ -1,24 +1,5 @@
-<script setup>
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { CircleUser } from "lucide-vue-next";
-import { Link, usePage } from "@inertiajs/vue3";
-
-const { url } = usePage();
-const { baseUrl } = usePage().props;
-</script>
-
 <template>
-    <header
-        className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex justify-end"
-    >
+    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex justify-end">
         <!-- <Sheet>
                 <SheetTrigger asChild>
                     <Button
@@ -119,10 +100,28 @@ const { baseUrl } = usePage().props;
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Link :href="baseUrl">
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
             </DropdownMenuContent>
         </DropdownMenu>
     </header>
 </template>
+<script setup>
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { CircleUser } from "lucide-vue-next";
+import { Link, usePage } from "@inertiajs/vue3";
+
+const { url } = usePage();
+const { baseUrl } = usePage().props;
+
+
+</script>
