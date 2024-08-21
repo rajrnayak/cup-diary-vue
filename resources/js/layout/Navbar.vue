@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { CircleUser } from "lucide-react";
+import { CircleUser } from "lucide-vue-next";
 import { Link, usePage } from "@inertiajs/vue3";
 
 const { url } = usePage();
@@ -108,7 +108,7 @@ const { baseUrl } = usePage().props;
                     </div>
                 </form>
             </div> -->
-        <DropdownMenu className="flex">
+        <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="rounded-full">
                     <CircleUser className="h-5 w-5" />
@@ -122,9 +122,6 @@ const { baseUrl } = usePage().props;
                     <DropdownMenuItem>Profile</DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
-                <!-- <Link :href={`${baseUrl}/logout`}>
-                        <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </Link> -->
             </DropdownMenuContent>
         </DropdownMenu>
     </header>
