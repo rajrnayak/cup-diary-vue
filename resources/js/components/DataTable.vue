@@ -35,7 +35,7 @@
                             >
                                 <Checkbox
                                     :id="'select' + column.key"
-                                    className="h-5 w-5 border-1 border-blue-600 data-[state=checked]:bg-blue-500"
+                                    className="h-5 w-5 border-1 rounded-md border-blue-400 data-[state=checked]:bg-blue-100"
                                     :checked="selectedColumns[column.key]"
                                     @update:checked="
                                         () =>
@@ -57,43 +57,50 @@
         </div>
         <div class="header-right">
             <div class="btn-group">
-                <input
+                <Input
                     type="text"
-                    class="form-control"
                     placeholder="Search..."
-                    v-model="searchText"
+                    class="border-1 border-grey-500 focus:border-none rounded-r-none"
+                    v-model:model-value="searchText"
                 />
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary"
+                <Button
+                    variant="flat"
+                    class="border-1 border-black rounded-0 p-3 focus:border-none"
                     @click="submitSearchFields"
                 >
-                    Search
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu m-0 p-0 p-1">
-                    <li v-for="(column, index) in searchFields">
-                        <div class="d-flex gap-3 ms-3">
-                            <input
-                                type="checkbox"
-                                :id="'search' + column.key"
-                                v-model="column.isAllowed"
-                            />
-                            <label
-                                class="form-check-label"
-                                :for="'search' + column.key"
-                                >{{ column.name }}</label
+                    <Search class="h-4 w-4" />
+                </Button>
+                <Popover>
+                    <PopoverTrigger
+                        className="p-2 rounded-md rounded-l-none bg-gray-500 text-white flex flex-row items-center"
+                    >
+                        <ChevronDown class="h-4 w-4" />
+                    </PopoverTrigger>
+                    <PopoverContent class="w-70 p-0">
+                        <template v-for="(column, index) in searchFields">
+                            <div
+                                class="grid grid-cols-3 flex flex-row items-center hover:bg-gray-100 cursor-pointer p-1 px-4"
                             >
-                        </div>
-                    </li>
-                </ul>
+                                <Checkbox
+                                    :id="'select' + column.key"
+                                    className="h-5 w-5 border-1 rounded-md border-blue-400 data-[state=checked]:bg-blue-100"
+                                    :checked="column.isAllowed"
+                                    @update:checked="
+                                        () =>
+                                            (column.isAllowed =
+                                                !column.isAllowed)
+                                    "
+                                />
+                                <Label
+                                    class="col-span-2 cursor-pointer"
+                                    :for="'select' + column.key"
+                                >
+                                    {{ column.name }}
+                                </Label>
+                            </div>
+                        </template>
+                    </PopoverContent>
+                </Popover>
             </div>
         </div>
     </div>
@@ -189,7 +196,9 @@ import {
 } from "@/components/ui/popover";
 import Label from "@/components/ui/label/Label.vue";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ChevronDown } from "lucide-vue-next";
+import { Input } from "@/components/ui/input";
+import { ChevronDown, Search } from "lucide-vue-next";
+import Button from "@/components/ui/button/Button.vue";
 
 const emit = defineEmits(["loadData"]);
 const props = defineProps({
