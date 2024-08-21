@@ -1,52 +1,40 @@
 <template>
     <div class="flex justify-between items-center">
         <div class="header-left flex justify-between items-center gap-2">
-            <div>
-                <Select v-bind="pagination.per_page">
-                    <SelectTrigger>
-                        <SelectValue
-                            :placeholder="pagination.per_page.toString()"
-                        />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <template v-for="(row, index) in perPages">
-                                <SelectItem :value="row.toString()">
-                                    {{ row }}
-                                </SelectItem>
-                            </template>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </div>
+            <DropdownMenu>
+                <DropdownMenuTrigger as-child>
+                    <Button variant="outline">
+                        {{ pagination.per_page }}
+                        <ChevronDown class="w-4 h-4 opacity-50" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent class="w-[60px] p-0" align="center">
+                    <!-- <DropdownMenuLabel>My Account</DropdownMenuLabel> -->
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <template v-for="(row, index) in perPages">
+                            <DropdownMenuItem class="pt-1 hover:bg-gray-100 cursor-pointer" @click="onChangePerPage(row)">{{ row }}</DropdownMenuItem>
+                        </template>
+                    </DropdownMenuGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
             <div v-if="selectColumns">
                 <Popover>
-                    <PopoverTrigger
-                        className="border-1 p-2 rounded-md flex flex-row items-center gap-1"
-                    >
+                    <PopoverTrigger className="border-1 p-2 rounded-md flex flex-row items-center gap-1">
                         Select Columns
                         <ChevronDown class="h-4 w-4" />
                     </PopoverTrigger>
                     <PopoverContent class="w-70 p-0">
                         <template v-for="(column, index) in columns">
-                            <div
-                                class="grid grid-cols-3 flex flex-row items-center hover:bg-gray-100 cursor-pointer p-1 px-4"
-                                v-if="!column.isAlwaysShow"
-                            >
-                                <Checkbox
-                                    :id="'select' + column.key"
+                            <div class="grid grid-cols-3 flex flex-row items-center hover:bg-gray-100 cursor-pointer p-1 px-4"
+                                v-if="!column.isAlwaysShow">
+                                <Checkbox :id="'select' + column.key"
                                     className="h-5 w-5 border-1 rounded-md border-blue-400 data-[state=checked]:bg-blue-100"
-                                    :checked="selectedColumns[column.key]"
-                                    @update:checked="
-                                        () =>
-                                            (selectedColumns[column.key] =
-                                                !selectedColumns[column.key])
-                                    "
-                                />
-                                <Label
-                                    class="col-span-2 cursor-pointer"
-                                    :for="'select' + column.key"
-                                >
+                                    :checked="selectedColumns[column.key]" @update:checked="() =>
+                                    (selectedColumns[column.key] =
+                                        !selectedColumns[column.key])
+                                        " />
+                                <Label class="col-span-2 cursor-pointer" :for="'select' + column.key">
                                     {{ column.name }}
                                 </Label>
                             </div>
@@ -57,44 +45,28 @@
         </div>
         <div class="header-right">
             <div class="btn-group">
-                <Input
-                    type="text"
-                    placeholder="Search..."
+                <Input type="text" placeholder="Search..."
                     class="border-1 border-grey-500 focus:border-none rounded-r-none"
-                    v-model:model-value="searchText"
-                />
-                <Button
-                    variant="flat"
-                    class="border-1 border-black rounded-0 p-3"
-                    @click="submitSearchFields"
-                >
+                    v-model:model-value="searchText" />
+                <Button variant="flat" class="border-1 border-black rounded-0 p-3" @click="submitSearchFields">
                     <Search class="h-4 w-4" />
                 </Button>
                 <Popover>
                     <PopoverTrigger
-                        className="p-2 rounded-md rounded-l-none bg-gray-500 text-white flex flex-row items-center"
-                    >
+                        className="p-2 rounded-md rounded-l-none bg-gray-500 text-white flex flex-row items-center">
                         <ChevronDown class="h-4 w-4" />
                     </PopoverTrigger>
                     <PopoverContent class="w-70 p-0">
                         <template v-for="(column, index) in searchFields">
                             <div
-                                class="grid grid-cols-3 flex flex-row items-center hover:bg-gray-100 cursor-pointer p-1 px-4"
-                            >
-                                <Checkbox
-                                    :id="'select' + column.key"
+                                class="grid grid-cols-3 flex flex-row items-center hover:bg-gray-100 cursor-pointer p-1 px-4">
+                                <Checkbox :id="'select' + column.key"
                                     className="h-5 w-5 border-1 rounded-md border-blue-400 data-[state=checked]:bg-blue-100"
-                                    :checked="column.isAllowed"
-                                    @update:checked="
-                                        () =>
-                                            (column.isAllowed =
-                                                !column.isAllowed)
-                                    "
-                                />
-                                <Label
-                                    class="col-span-2 cursor-pointer"
-                                    :for="'select' + column.key"
-                                >
+                                    :checked="column.isAllowed" @update:checked="() =>
+                                    (column.isAllowed =
+                                        !column.isAllowed)
+                                        " />
+                                <Label class="col-span-2 cursor-pointer" :for="'select' + column.key">
                                     {{ column.name }}
                                 </Label>
                             </div>
@@ -108,18 +80,11 @@
         <TableHeader>
             <TableRow>
                 <template v-for="(column, index) in columns">
-                    <TableHead
-                        v-if="columnSorting && selectedColumns[column.key]"
-                        class="p-0 m-0 p-2 bg-gray-100"
-                    >
-                        <div
-                            class="flex justify-between items-center"
-                            @click="
-                                () =>
-                                    !column.notSorted &&
-                                    changeSorting(column.key)
-                            "
-                        >
+                    <TableHead v-if="columnSorting && selectedColumns[column.key]" class="p-0 m-0 p-2 bg-gray-100">
+                        <div class="flex justify-between items-center" @click="() =>
+                            !column.notSorted &&
+                            changeSorting(column.key)
+                            ">
                             <Label class="text-base">
                                 {{ column.name }}
                             </Label>
@@ -128,9 +93,7 @@
                             </div>
                         </div>
                     </TableHead>
-                    <TableHead
-                        v-if="!columnSorting && selectedColumns[column.key]"
-                    >
+                    <TableHead v-if="!columnSorting && selectedColumns[column.key]">
                         <Label class="text-base">
                             {{ column.name }}
                         </Label>
@@ -142,13 +105,8 @@
             <TableRow v-for="(row, index) in data">
                 <template v-for="(column, index) in columns">
                     <TableCell v-if="selectedColumns[column.key]" class="p-2">
-                        <slot
-                            :row="row"
-                            :column="column"
-                            :name="column.renderBody && column.key"
-                        >
-                            {{ row[column.key] }}</slot
-                        >
+                        <slot :row="row" :column="column" :name="column.renderBody && column.key">
+                            {{ row[column.key] }}</slot>
                     </TableCell>
                 </template>
             </TableRow>
@@ -172,15 +130,6 @@
 import { computed, onMounted, ref } from "vue";
 import Pagination from "./Pagination.vue";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
     Table,
     TableBody,
     TableCaption,
@@ -199,6 +148,20 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Search } from "lucide-vue-next";
 import Button from "@/components/ui/button/Button.vue";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 const emit = defineEmits(["loadData"]);
 const props = defineProps({
@@ -244,6 +207,10 @@ const loadData = (page) => {
     emit("loadData", page);
 };
 
+const onChangePerPage = (perPage) => {
+    emit("loadData", props.pagination.current_page, perPage);
+};
+
 const submitSearchFields = () => {
     let searchArray = [];
     searchText.value != "" &&
@@ -265,8 +232,8 @@ const loadHeader = (key) => {
         sortedColumns.value[key] == "ASC"
             ? "A"
             : sortedColumns.value[key] == "DESC"
-            ? "D"
-            : "N";
+                ? "D"
+                : "N";
     return icon;
 };
 

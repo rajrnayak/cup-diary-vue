@@ -27,7 +27,7 @@
                                     ? 'default'
                                     : 'outline'
                             "
-                            @click="$emit('loadData', item.value)"
+                            @click="item.value != pagination.current_page && $emit('loadData', item.value)"
                         >
                             {{ item.value }}
                         </Button>
