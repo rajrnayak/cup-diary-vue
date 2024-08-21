@@ -5,6 +5,8 @@ import axios from "axios";
 import Card from "../components/Card.vue";
 import DataTable from "../components/DataTable.vue";
 import UserForm from "./UserForm.vue";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 const { baseUrl } = usePage().props;
 
@@ -132,19 +134,19 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div class="container mt-3">
+    <div>
         <Card>
-            <template #header>
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3 class="m-0 p-0">Users</h3>
-                    <button
-                        type="button"
-                        class="btn btn-outline-primary"
-                        @click="openFormModal"
-                    >
-                        Add User
-                    </button>
-                </div>
+            <template #headerLeft>
+                <Label class="m-0 p-0 text-3xl">Users</Label>
+            </template>
+            <template #headerRight>
+                <Button
+                    @click="openFormModal"
+                    variant="flat"
+                    class="border-1 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                >
+                    Add User
+                </Button>
             </template>
             <DataTable
                 :data="users"
@@ -158,19 +160,20 @@ onMounted(() => {
             >
                 <template #action="actionProps">
                     <div class="d-flex gap-1">
-                        <button
-                            type="button"
-                            class="btn btn-outline-success"
+                        <Button
                             @click="() => openFormModal(actionProps.row)"
+                            variant="flat"
+                            class="border-1 border-green-500 text-green-500 hover:bg-green-500 hover:text-white p-3"
                         >
-                            Edit</button
-                        ><button
-                            type="button"
-                            class="btn btn-outline-danger"
+                            Edit
+                        </Button>
+                        <Button
+                            variant="flat"
+                            class="border-1 border-red-500 text-red-500 hover:bg-red-500 hover:text-white p-3"
                             @click="() => destroy(actionProps.row.id)"
                         >
                             Delete
-                        </button>
+                        </Button>
                     </div>
                 </template>
             </DataTable>
