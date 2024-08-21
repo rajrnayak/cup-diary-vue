@@ -13,7 +13,8 @@
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                         <template v-for="(row, index) in perPages">
-                            <DropdownMenuItem class="pt-1 hover:bg-gray-100 cursor-pointer" @click="onChangePerPage(row)">{{ row }}</DropdownMenuItem>
+                            <DropdownMenuItem class="pt-1 hover:bg-gray-100 cursor-pointer"
+                                @click="onChangePerPage(row)">{{ row }}</DropdownMenuItem>
                         </template>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -116,9 +117,9 @@
         </TableBody>
     </Table>
     <div class="flex justify-between items-center">
-        <div class="footerLeft">
-            {{ pagination.from }} - {{ pagination.to }} of
-            {{ pagination.total }} entries.
+        <div class="footerLeft"> Showing
+            {{ pagination.from }} to {{ pagination.to }}  of
+            <b>{{ pagination.total }}</b> Entries
         </div>
         <div class="footerRight">
             <Pagination :pagination="pagination" @load-data="loadData" />
