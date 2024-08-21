@@ -11,7 +11,7 @@ import {
 
 <template>
     <Card>
-        <CardHeader class="bg-slate-100 h-20">
+        <CardHeader class="bg-slate-100 p-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center"><slot name="headerLeft" /></div>
                 <div class="flex items-center"><slot name="headerRight" /></div>

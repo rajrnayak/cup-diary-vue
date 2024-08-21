@@ -8,7 +8,7 @@
                 <Button
                     @click="openFormModal"
                     variant="flat"
-                    class="border-1 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                    class="border-1 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                 >
                     Add User
                 </Button>
