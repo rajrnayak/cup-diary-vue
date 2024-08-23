@@ -86,16 +86,15 @@ class PermissionSeeder extends Seeder
 
         Permission::insert($permissions);
 
-        $adminRole = Role::create(['name' => 'admin', 'display_name' => 'Admin']);
-        $userRole = Role::create(['name' => 'user', 'display_name' => 'User']);
-
+        $adminRole = Role::where('name','admin')->first();
+        $userRole = Role::where('name','user')->first();
 
         $adminRole->givePermissionTo([
             'admin_dashboard','user_view','vendor_view'
         ]);
 
         $userRole->givePermissionTo([
-            'admin_dashboard','user_view'
+            'admin_dashboard','vendor_view'
         ]);
     }
 }

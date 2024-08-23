@@ -7,31 +7,37 @@ use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+
     public function run(): void
     {
-        $user1 = User::create([
-            'username' => 'raj',
-            'first_name' => 'Raj',
-            'last_name' => 'Nayak',
-            'mobile_number' => 8320139615,
-            'email' => 'raj@gmail.com',
-            'password' => bcrypt('123456'),
+
+        Role::truncate();
+        User::truncate();
+
+        $adminRole = Role::create([
+            'name' => 'admin',
+            'display_name'=> 'Admin',
         ]);
 
-        $user2 = User::create([
-            'username' => 'mahir',
-            'first_name' => 'Mahir',
-            'last_name' => 'Sherasiya',
-            'mobile_number' => 9904427380,
-            'email' => 'sherasiyamahir24@gmail.com',
-            'password' => bcrypt('123456'),
+        $userRole = Role::create([
+            'name' => 'user',
+            'display_name'=> 'User',
         ]);
+
+        $user1 = User::create([
+            'username' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
+            'mobile_number' => 9876543210,
+            'email' => 'admin@test.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $user1->assignRole($adminRole->name);
 
         $faker = Factory::create();
 
@@ -46,6 +52,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123456'),
             ]);
 
+            $row->assignRole($userRole->name);
         }
     }
 }

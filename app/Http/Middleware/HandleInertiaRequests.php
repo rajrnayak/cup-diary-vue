@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $givenPermissions = [];
-        $role = Role::find(3);
+        $role = Role::where('name','admin')->first();
         $all_permissions = Permission::get('name');
         foreach ($all_permissions as $key => $value) {
             $givenPermissions[$value->name] = $role->hasPermissionTo($value->name);
