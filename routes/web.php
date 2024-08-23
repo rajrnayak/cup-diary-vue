@@ -22,6 +22,7 @@ Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login-post',[AuthController::class,'loginPost'])->name('login_post');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
+Route::get('/test-page',[DashboardController::class,'TestPage'])->name('test_page');
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/',[DashboardController::class,'index'])->name('index');
