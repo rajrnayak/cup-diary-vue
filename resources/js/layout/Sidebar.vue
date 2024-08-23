@@ -1,12 +1,12 @@
 <template>
-    <div class="hidden border-r bg-muted/40 md:block">
-        <div class="flex h-full max-h-screen flex-col gap-2">
+    <div class="hidden border-r   overflow-hidden bg-muted/40 md:block">
+        <div class="flex h-full  max-h-screen flex-col gap-2">
             <div
                 class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6"
             >
                 <Link href="/" class="flex items-center gap-2 font-semibold">
                     <Coffee class="h-6 w-6" />
-                    <span class="">Cup Diary</span>
+                    <span class="ps-3">Cup Diary</span>
                 </Link>
             </div>
             <div class="flex-1">
@@ -33,6 +33,7 @@
 </template>
 <script setup>
 import {
+    ArrowLeftRightIcon,
     BriefcaseBusiness,
     Coffee,
     Home,
@@ -94,5 +95,5 @@ const links = [
     },
 ];
 const classText =
-    "ms-2 flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary";
+    "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary";
 </script>
