@@ -38,7 +38,7 @@ class UserController extends Controller
             )
             ->when($searchRows, function (Builder $query, array $searchRows) {
                 foreach ($searchRows as $key => $value) {
-                    $query->orWhere($value['name'] , 'LIKE' , "%".$value['text']."%");
+                    $query->orWhere($key, 'LIKE' , "%".$value."%");
                 }
             })
             ->when($sortingColumns, function (Builder $query, array $sortingColumns) {
