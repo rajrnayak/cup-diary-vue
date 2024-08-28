@@ -1,20 +1,20 @@
 <template>
-    <div>
-        <Button @click="openModal">Open</Button>
-        <DialogModal ref="formRef">
-            <div>Hello</div>
-        </DialogModal>
-    </div>
+    <DialogModal ref="dialogRef">
+        <div>Hello</div>
+    </DialogModal>
 </template>
 
 <script setup>
-import Button from "@/components/ui/button/Button.vue";
 import DialogModal from "@/js/components/DialogModal.vue";
 import { ref } from "vue";
 
+const dialogRef = ref(null);
+
 const openModal = () => {
-    formRef.value.openDialog();
+    dialogRef.value.openDialog();
 };
 
-const formRef = ref(null);
+defineExpose({
+    openModal,
+});
 </script>

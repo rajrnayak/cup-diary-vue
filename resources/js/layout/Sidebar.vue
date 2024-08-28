@@ -1,6 +1,6 @@
 <template>
-    <div class="hidden border-r   overflow-hidden bg-muted/40 md:block">
-        <div class="flex h-full  max-h-screen flex-col gap-2">
+    <div class="hidden border-r overflow-hidden bg-muted/40 md:block">
+        <div class="flex h-full max-h-screen flex-col gap-2">
             <div
                 class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6"
             >
@@ -17,7 +17,7 @@
                             :href="link.link"
                             :className="[
                                 classText,
-                                url == link.link
+                                link.isActive
                                     ? 'nav-link text-primary'
                                     : 'nav-link',
                             ]"
@@ -31,6 +31,7 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import {
     ArrowLeftRightIcon,
@@ -45,55 +46,66 @@ import {
     Users,
 } from "lucide-vue-next";
 import { Link, usePage } from "@inertiajs/vue3";
+import { reactive } from "vue";
 
-const { url } = usePage();
-// const { url } = usePage();
-const { givenPermissions } = usePage().props;
+const { givenPermissions, baseUrl } = usePage().props;
 
-const links = [
+const linkIsActive = (url) => {
+    return window.location.href == url ? true : false;
+};
+
+const links = reactive([
     {
         name: "Dashboard",
         link: "/",
         icon: Home,
         permission: givenPermissions.admin_dashboard,
+        isActive: linkIsActive(`${baseUrl}/`),
     },
     {
         name: "User",
         link: "/user",
         icon: User,
         permission: givenPermissions.user_view,
+        isActive: linkIsActive(`${baseUrl}/user`),
     },
     {
         name: "Vendor",
         link: "/vendor",
         icon: BriefcaseBusiness,
         permission: givenPermissions.vendor_view,
+        isActive: linkIsActive(`${baseUrl}/vendor`),
     },
     {
         name: "Cup List",
         link: "/cup-list",
         icon: List,
         permission: givenPermissions.cupList_view,
+        isActive: linkIsActive(`${baseUrl}/cup-list`),
     },
     {
         name: "Payment",
         link: "/payment",
         icon: IndianRupee,
         permission: givenPermissions.payment_view,
+        isActive: linkIsActive(`${baseUrl}/payment`),
     },
     {
         name: "Role",
         link: "/role",
         icon: Users,
         permission: givenPermissions.role_view,
+        isActive: linkIsActive(`${baseUrl}/role`),
     },
     {
         name: "Permission",
         link: "/permission",
         icon: Lock,
         permission: true,
+        isActive: linkIsActive(`${baseUrl}/permission`),
     },
-];
+]);
+
 const classText =
     "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary";
 </script>

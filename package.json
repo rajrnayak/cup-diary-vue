@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.2.0",
+        "@vee-validate/zod": "^4.13.2",
         "@vitejs/plugin-vue": "^5.1.2",
         "@vueuse/core": "^11.0.1",
         "class-variance-authority": "^0.7.0",
@@ -25,6 +26,8 @@
         "radix-vue": "^1.9.4",
         "tailwind-merge": "^2.5.2",
         "tailwindcss-animate": "^1.0.7",
-        "vue-sonner": "^1.1.4"
+        "vee-validate": "^4.13.2",
+        "vue-sonner": "^1.1.4",
+        "zod": "^3.23.8"
     }
 }
