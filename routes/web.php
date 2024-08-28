@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +40,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('profile')->as('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('vendor')->as('vendor.')->group(function () {
+        Route::get('/', [VendorController::class, 'index'])->name('index');
+
+        Route::post('store-or-update/{user?}', [VendorController::class, 'storeOrUpdate'])->name('store_or_update');
+
+        Route::get('destroy/{user}', [VendorController::class, 'destroy'])->name('destroy');
+
+        Route::post('load-data', [VendorController::class, 'loadData'])->name('load_data');
     });
 });

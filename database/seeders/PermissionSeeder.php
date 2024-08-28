@@ -57,12 +57,90 @@ class PermissionSeeder extends Seeder
                 "display_name" => 'Vendor View',
                 "category" => 'vendor',
             ],
+            [
+                "name" => 'vendor_store',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Store',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_update',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Update',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_delete',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Delete',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_details',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Details',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_balance_view',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Balance View',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_balance_import',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Balance Import',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_balance_export',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Balance Export',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_balance_demo',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Balance Demo',
+                "category" => 'vendor',
+            ],
+            [
+                "name" => 'vendor_balance_pdf',
+                'guard_name' => 'web',
+                "display_name" => 'Vendor Balance Pdf',
+                "category" => 'vendor',
+            ],
 
             // cup-list ---------------------------------------------------------------
             [
                 "name" => 'cupList_view',
                 'guard_name' => 'web',
                 "display_name" => 'CupList View',
+                "category" => 'cupList',
+            ],
+            [
+                "name" => 'cupList_store',
+                'guard_name' => 'web',
+                "display_name" => 'CupList Store',
+                "category" => 'cupList',
+            ],
+            [
+                "name" => 'cupList_update',
+                'guard_name' => 'web',
+                "display_name" => 'CupList Update',
+                "category" => 'cupList',
+            ],
+            [
+                "name" => 'cupList_delete',
+                'guard_name' => 'web',
+                "display_name" => 'CupList Delete',
+                "category" => 'cupList',
+            ],
+            [
+                "name" => 'cupList_details',
+                'guard_name' => 'web',
+                "display_name" => 'CupList Details',
                 "category" => 'cupList',
             ],
 
@@ -73,13 +151,72 @@ class PermissionSeeder extends Seeder
                 "display_name" => 'Role View',
                 "category" => 'role',
             ],
-
+            [
+                "name" => 'role_store',
+                'guard_name' => 'web',
+                "display_name" => 'Role Store',
+                "category" => 'role',
+            ],
+            [
+                "name" => 'role_update',
+                'guard_name' => 'web',
+                "display_name" => 'Role Update',
+                "category" => 'role',
+            ],
+            [
+                "name" => 'role_delete',
+                'guard_name' => 'web',
+                "display_name" => 'Role Delete',
+                "category" => 'role',
+            ],
 
             // payment --------------------------------------------------------------
             [
                 "name" => 'payment_view',
                 'guard_name' => 'web',
                 "display_name" => 'Payment View',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_store',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Store',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_update',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Update',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_delete',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Delete',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_import',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Import',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_export',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Export',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_demo',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Demo',
+                "category" => 'payment',
+            ],
+            [
+                "name" => 'payment_pdf',
+                'guard_name' => 'web',
+                "display_name" => 'Payment Pdf',
                 "category" => 'payment',
             ],
         ];
@@ -90,11 +227,12 @@ class PermissionSeeder extends Seeder
         $userRole = Role::where('name','user')->first();
 
         $adminRole->givePermissionTo([
-            'admin_dashboard','user_view','vendor_view'
+            'admin_dashboard','user_view','vendor_view','cupList_view','role_view','payment_view',
         ]);
 
         $userRole->givePermissionTo([
-            'admin_dashboard','vendor_view'
+            'admin_dashboard',
         ]);
+
     }
 }
